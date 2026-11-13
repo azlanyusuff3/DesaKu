@@ -288,7 +288,7 @@ const fmt = n => n >= 10000 ? (n / 1000).toFixed(1) + 'k' : Math.floor(n).toLoca
 function hud() {
   $('sMoney').innerHTML = `💰 <b>${fmt(S.money)}</b>`;
   $('sPop').innerHTML = `👥 <b>${Math.floor(SIM.pop)}</b>`;
-  $('sJob').innerHTML = `💼 <b>${SIM.employed || 0}/${SIM.jobs}</b>`;
+  $("sJob").innerHTML = `💼 <b>${Math.floor(SIM.employed || 0)}/${SIM.jobs}</b>`;
   $('sJob').classList.toggle('bad', SIM.jobs < SIM.pop - 1);
   $('sHappy').innerHTML = `${SIM.happy >= 3 ? '😍' : SIM.happy >= 1 ? '😊' : SIM.happy >= 0 ? '🙂' : '😠'} <b>${SIM.happy.toFixed(1)}</b>`;
   const l = level(), nx = LEVELS[l + 1];
