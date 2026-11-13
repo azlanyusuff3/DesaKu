@@ -1,4 +1,4 @@
-const VERSION = 'desaku-0.1.0';
+const VERSION = 'desaku-0.1.1';
 const FILES = ['./', 'index.html', 'style.css', 'game.js', 'manifest.json', 'icon.svg', 'sprites/list.json'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(FILES))); self.skipWaiting(); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSION).map(k => caches.delete(k))))); self.clients.claim(); });

@@ -150,15 +150,22 @@ function drawTile(gx, gy, c) {
   if (sx < -w || sx > W + w || sy < -h * 4 || sy > H + h) return;   // luar skrin: skip
   const t = c.t;
   // tanah
-  ctx.fillStyle = t === 'air' ? '#74c0fc' : ((gx + gy) % 2 ? '#a9dc8b' : '#9fd47f'); diamond(sx, sy, w, h); ctx.fill();
+  const gk = t === 'air' ? 'air' : 'tanah';
+  if (ART[gk]) ctx.drawImage(ART[gk], sx - w / 2, sy, w, w * ART[gk].height / ART[gk].width);
+  else { ctx.fillStyle = t === 'air' ? '#74c0fc' : ((gx + gy) % 2 ? '#a9dc8b' : '#9fd47f'); diamond(sx, sy, w, h); ctx.fill(); }
+  if (t === 'air' && ART.air) return;
   if (t === 'air') { ctx.strokeStyle = '#d0ebff'; ctx.lineWidth = 1.2 * z; ctx.beginPath(); ctx.moveTo(sx - w * .2, sy + h * .5); ctx.quadraticCurveTo(sx, sy + h * .35, sx + w * .2, sy + h * .5); ctx.stroke(); return; }
   if (sel && sel[0] === gx && sel[1] === gy) { ctx.fillStyle = '#fff6'; diamond(sx, sy, w, h); ctx.fill(); }
   if (!t) return;
-  if (t === 'pokok') { tree(sx, sy + h * .5, z, 1); return; }
+  if (t === 'pokok') { if (ART.pokok) sprite(ART.pokok, sx, sy, w, h); else tree(sx, sy + h * .5, z, 1); return; }
   const b = B[t];
   const key = t === 'rumah' ? 'rumah_' + (c.lv || 0) : t;
-  if (ART[key]) { const im = ART[key], iw = w * 1.0, ih = iw * im.height / im.width; ctx.drawImage(im, sx - iw / 2, sy + h - ih + h * .05, iw, ih); badges(gx, gy, c, sx, sy, z); return; }
+  if (t !== 'jalan' && ART[key]) { sprite(ART[key], sx, sy, w, h); badges(gx, gy, c, sx, sy, z, ART[key]); return; }
   if (t === 'jalan') {
+    const isR = (a, b) => { const q = at(a, b); return q && q.t === 'jalan'; };
+    const ex = isR(gx + 1, gy) || isR(gx - 1, gy), ey = isR(gx, gy + 1) || isR(gx, gy - 1);
+    const rk = ex && ey ? 'jalan_simpang' : ex ? 'jalan_x' : 'jalan_y';
+    if (ART[rk]) { ctx.drawImage(ART[rk], sx - w / 2, sy, w, w * ART[rk].height / ART[rk].width); return; }
     ctx.fillStyle = '#b8a586'; diamond(sx, sy + h * .08, w * .92, h * .92); ctx.fill();
     ctx.strokeStyle = '#fff8'; ctx.setLineDash([4 * z, 4 * z]); ctx.lineWidth = 1.2 * z;
     const lr = (at(gx + 1, gy) && at(gx + 1, gy).t === 'jalan') || (at(gx - 1, gy) && at(gx - 1, gy).t === 'jalan');
@@ -185,6 +192,8 @@ function drawTile(gx, gy, c) {
   if (t === 'kilang' && S.anim) { ctx.fillStyle = '#ced4da'; ctx.beginPath(); ctx.arc(ox + bw * .1, oy - zz - 8 * z - (frame % 12) * z, (3 + (frame % 12) * .3) * z, 0, 7); ctx.fill(); }
   badges(gx, gy, c, sx, sy, z);
 }
+// sprite ChatGPT: lebar = lebar petak, tapak berlian di bawah gambar duduk tepat atas petak
+function sprite(im, sx, sy, w, h) { const ih = w * im.height / im.width; ctx.drawImage(im, sx - w / 2, sy + h - ih, w, ih); }
 function tree(x, y, z, v) {
   ctx.fillStyle = '#8d6e4f'; ctx.fillRect(x - 1.5 * z, y - 8 * z, 3 * z, 8 * z);
   ctx.fillStyle = v ? '#51cf66' : '#37b24d'; ctx.beginPath(); ctx.arc(x, y - 12 * z, 7 * z, 0, 7); ctx.fill();
