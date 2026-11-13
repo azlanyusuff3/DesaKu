@@ -1,0 +1,50 @@
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:#a8d88a;font-family:"Nunito",system-ui,-apple-system,sans-serif;color:#4a3528;user-select:none;-webkit-user-select:none;touch-action:none}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+.hidden{display:none!important}
+
+.hud{position:fixed;top:calc(8px + env(safe-area-inset-top));left:8px;right:8px;display:flex;gap:6px;z-index:5}
+.stat{flex:1;min-width:0;background:#fffaf0ee;border-radius:14px;padding:6px 6px;font-size:13px;text-align:center;box-shadow:0 3px 0 #d8c3a3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stat b{font-weight:900}
+.stat.bad b{color:#d9480f}
+.icon{border:0;background:#fffaf0ee;border-radius:14px;width:40px;font-size:18px;box-shadow:0 3px 0 #d8c3a3}
+.level{position:fixed;top:calc(52px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);background:#fffaf0dd;border-radius:12px;padding:4px 10px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:900;z-index:5;box-shadow:0 2px 0 #d8c3a3}
+.level i{width:80px;height:8px;background:#ead9bf;border-radius:4px;overflow:hidden}
+.level i b{display:block;height:100%;width:0;background:linear-gradient(90deg,#69db7c,#2f9e44);transition:width .4s}
+.level span{white-space:nowrap}
+.level small{font-weight:700;opacity:.7}
+
+.toast{position:fixed;left:50%;top:calc(88px + env(safe-area-inset-top));transform:translateX(-50%);background:#4a3528e6;color:#fff;padding:7px 14px;border-radius:12px;font-size:13px;font-weight:800;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6;max-width:90vw;text-align:center}
+.toast.show{opacity:1}
+
+.bar{position:fixed;left:0;right:0;bottom:0;padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;gap:6px;overflow-x:auto;background:linear-gradient(transparent,#00000022);z-index:5;scrollbar-width:none}
+.bar::-webkit-scrollbar{display:none}
+.tool{flex:0 0 auto;width:64px;border:0;border-radius:16px;background:#fffaf0;padding:6px 2px 5px;box-shadow:0 4px 0 #d8c3a3;font-family:inherit;color:#4a3528;position:relative}
+.tool span{display:block;font-size:24px;line-height:1.1}
+.tool b{display:block;font-size:10.5px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tool small{display:block;font-size:10px;font-weight:800;color:#2f9e44}
+.tool.on{background:#ffe066;box-shadow:0 4px 0 #e0a800;transform:translateY(-3px)}
+.tool.lock{opacity:.45}
+.tool.lock small{color:#868e96}
+.tool.poor small{color:#e03131}
+
+.panel{position:fixed;inset:0;background:#0006;display:flex;align-items:center;justify-content:center;padding:18px;z-index:10}
+.card{background:#fffaf0;border-radius:22px;padding:16px;width:min(100%,360px);max-height:85vh;overflow:auto;box-shadow:0 6px 0 #d8c3a3;text-align:center}
+.card h2{margin:4px 0 6px;font-size:22px}
+.card p{margin:6px 0;font-size:14px;line-height:1.4}
+.card .big{font-size:46px}
+.card .rows{text-align:left;background:#f4ead8;border-radius:14px;padding:8px 12px;margin:10px 0;font-size:13.5px}
+.card .rows div{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed #e0cfb3}
+.card .rows div:last-child{border:0}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:12px;margin-top:8px;font:900 16px inherit;font-family:inherit;background:#69db7c;color:#fff;box-shadow:0 4px 0 #2f9e44}
+.btn.grey{background:#e9ecef;color:#495057;box-shadow:0 4px 0 #adb5bd}
+.btn.red{background:#ff8787;box-shadow:0 4px 0 #e03131}
+.btn:active,.tool:active{transform:translateY(3px);box-shadow:none}
+.switch{display:flex;justify-content:space-between;align-items:center;padding:10px 4px;font-weight:800;font-size:14px;border-bottom:1px dashed #e0cfb3;text-align:left}
+.switch small{display:block;font-weight:600;opacity:.7;font-size:11.5px}
+.switch input{width:22px;height:22px;accent-color:#2f9e44}
+
+@media (orientation:landscape) and (max-height:500px){
+  .hud{right:auto;width:min(60vw,520px)}
+  .level{left:auto;right:8px;transform:none;top:calc(8px + env(safe-area-inset-top))}
+}

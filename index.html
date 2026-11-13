@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#a8d88a">
+<title>DesaKu</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<canvas id="cv"></canvas>
+
+<header class="hud">
+  <div class="stat" id="sMoney">💰 <b>0</b></div>
+  <div class="stat" id="sPop">👥 <b>0</b></div>
+  <div class="stat" id="sJob">💼 <b>0/0</b></div>
+  <div class="stat" id="sHappy">😊 <b>0</b></div>
+  <button id="menuBtn" class="icon" type="button" aria-label="Menu">☰</button>
+</header>
+<div class="level" id="level"><span id="lvName">Kampung</span><i><b id="lvBar"></b></i><small id="lvNext"></small></div>
+<div class="toast" id="toast"></div>
+
+<nav class="bar" id="bar"></nav>
+
+<div class="panel hidden" id="panel"><div class="card" id="panelCard"></div></div>
+<script src="game.js?v=1"></script>
+<script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});</script>
+</body>
+</html>
